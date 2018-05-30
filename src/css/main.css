@@ -1,0 +1,134 @@
+body {
+  font-size: 0.8em;
+  color: #eee;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+hr {
+  border-top: 1px solid rgba(255,255,255,.2);
+  margin: 0;
+}
+
+.container {
+  padding-top: 1rem;
+}
+
+.location {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+}
+
+.date, .summary {
+  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+}
+
+.current {
+  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+  margin: 0.5rem 0;
+}
+
+.background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index:-1;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/*
+ * VISUAL
+ */
+
+.visual {
+  margin-right: 1rem;
+}
+
+.visual .weather-icon {
+  font-size: 50px;
+  display: inline-block;
+  color: #fff;
+}
+
+.visual .temp {
+  font-size: 2rem;
+  display: inline-block;
+  vertical-align: top;
+  color: #fff;
+}
+
+.visual .scale {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 8px;
+}
+
+/*
+ * DESCRIPTION
+ */
+
+.description .humidity::before {
+  content: "Humidity: ";
+  color: #eee;
+}
+
+.description .pressure::before {
+  content: "Pressure: ";
+  color: #eee;
+}
+
+.description .wind::before {
+  content: "Wind: ";
+  color: #eee;
+}
+
+.description .feels-like::before {
+  content: "Feels-like: ";
+  color: #eee;
+}
+
+.description .visibility::before {
+  content: "Visibility: ";
+  color: #eee;
+}
+
+.description .humidity, .description .pressure, .description .wind, .description .feels-like, .description .visibility {
+  color: #fff;
+}
+
+/*
+ * SEVEN DAY
+ */
+
+.seven-day {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0 .5rem;
+}
+
+.seven-day .weather-icon {
+  font-size: 30px;
+}
+
+.seven-day .weather-icon i {
+  margin-top: 10px;
+}
+
+.seven-day-fc .temp-high::after {
+  content: " HI";
+  font-size: 0.5rem;
+}
+
+.seven-day-fc .temp-low::after {
+  content: " LO";
+  font-size: 0.5rem;
+}
+
+
+
+
+
+
+

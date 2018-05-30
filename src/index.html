@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Weather app</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Default Stylesheet -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Weather and Wind icons -->
+    <link rel="stylesheet" href="css/weather-icons.min.css">
+    <link rel="stylesheet" href="css/weather-icons-wind.min.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- background image -->
+    <img class="background" src="css/bg.jpg">
+    
+    <div class="container">
+
+      <!-- current location -->
+      <div class="location">Paphos</div>
+      
+      <!-- current date -->
+      <div class="date">Wed, 30 May 2018 12:00 PM EEST</div>
+      
+      <!-- current forecast description -->
+      <div class="summary">Sunny</div>
+      
+      <!-- current forecast -->
+      <div class="current clearfix">
+        <div class="visual float-left">
+          <div class="weather-icon"><i class="wi wi-day-sunny"></i></div>
+          <div class="temp">25</div>
+          <div class="scale">&#8451;</div>
+        </div>
+        <div class="description float-left">
+          <div class="humidity">54%</div>
+          <div class="pressure">200 mb</div>
+          <div class="wind">28.9 km/h WNW, <i class="wi wi-wind-beaufort-8"></i></div>
+          <div class="feels-like">26&deg;</div>
+          <div class="visibility">25 km</div>
+        </div>
+      </div>
+
+      <!-- seven-day forecast -->
+      <div class="seven-day rounded">
+        <div class="seven-day-fc row">
+          <div class="date d-inline-block col-3 align-self-center">Today</div>
+          <div class="weather-icon d-inline-block col-3"><i class="wi wi-day-sunny"></i></div>
+          <div class="temp-high d-inline-block col-3 align-self-center">40&deg;</div>
+          <div class="temp-low d-inline-block col-3 align-self-center">30&deg;</div>
+        </div>
+        <hr>
+        <div class="seven-day-fc row">
+          <div class="date d-inline-block col-3 align-self-center">Thu</div>
+          <div class="weather-icon d-inline-block col-3 align-self-center"><i class="wi wi-day-rain"></i></div>
+          <div class="temp-high d-inline-block col-3 align-self-center">40&deg;</div>
+          <div class="temp-low d-inline-block col-3 align-self-center">30&deg;</div>
+        </div>
+        <hr>
+        <div class="seven-day-fc row">
+          <div class="date d-inline-block col-3 align-self-center">Fri</div>
+          <div class="weather-icon d-inline-block col-3 align-self-center"><i class="wi wi-day-cloudy"></i></div>
+          <div class="temp-high d-inline-block col-3 align-self-center">40&deg;</div>
+          <div class="temp-low d-inline-block col-3 align-self-center">30&deg;</div>
+        </div>
+        <hr>
+        <div class="seven-day-fc row">
+          <div class="date d-inline-block col-3 align-self-center">Sat</div>
+          <div class="weather-icon d-inline-block col-3 align-self-center"><i class="wi wi-day-windy"></i></div>
+          <div class="temp-high d-inline-block col-3 align-self-center">40&deg;</div>
+          <div class="temp-low d-inline-block col-3 align-self-center">30&deg;</div>
+        </div>
+        <hr>
+        <div class="seven-day-fc row">
+          <div class="date d-inline-block col-3 align-self-center">Sun</div>
+          <div class="weather-icon d-inline-block col-3 align-self-center"><i class="wi wi-day-snow"></i></div>
+          <div class="temp-high d-inline-block col-3 align-self-center">40&deg;</div>
+          <div class="temp-low d-inline-block col-3 align-self-center">30&deg;</div>
+        </div>
+        <hr>
+        <div class="seven-day-fc row">
+          <div class="date d-inline-block col-3 align-self-center">Mo</div>
+          <div class="weather-icon d-inline-block col-3 align-self-center"><i class="wi wi-day-snow-thunderstorm"></i></div>
+          <div class="temp-high d-inline-block col-3 align-self-center">40&deg;</div>
+          <div class="temp-low d-inline-block col-3 align-self-center">30&deg;</div>
+        </div>
+        <hr>
+        <div class="seven-day-fc row">
+          <div class="date d-inline-block col-3 align-self-center">Tue</div>
+          <div class="weather-icon d-inline-block col-3 align-self-center"><i class="wi wi-day-sunny"></i></div>
+          <div class="temp-high d-inline-block col-3 align-self-center">40&deg;</div>
+          <div class="temp-low d-inline-block col-3 align-self-center">30&deg;</div>
+        </div>
+      </div>
+
+      <!-- astronomy -->
+      <div class="astronomy">
+        
+      </div>
+
+    </div>
+  </body>
+</html>
