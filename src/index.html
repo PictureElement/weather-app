@@ -13,32 +13,37 @@
   <body>
 
     <!-- background image -->
-    <img class="background" src="css/bg.jpg">
-    
+    <img class="background" src="css/bg.jpg" alt="background image">
+
     <div class="container">
 
+      <form id="formContainer" class="form-inline mt-3">
+        <input id="inputLocation" class="form-control form-control-sm mr-sm-2" type="search" placeholder="Location" aria-label="Location" value="">
+        <button class="btn btn-sm btn-outline-success mt-2 mt-sm-0" type="submit">Submit</button>
+      </form>
+
       <!-- current location -->
-      <div class="location">San Francisco</div>
+      <div id="location" class="location">San Francisco</div>
       
       <!-- current date -->
-      <div class="date">Wed, 30 May 2018 12:00 PM EEST</div>
+      <div id="date" class="date">Wed, 30 May 2018 12:00 PM EEST</div>
       
       <!-- current forecast description -->
-      <div class="summary">Sunny</div>
+      <div id="condition" class="condition">Partly Cloudy</div>
       
       <!-- current forecast -->
       <div class="current clearfix">
         <div class="visual float-left">
-          <canvas class="weather-icon" id="partly-cloudy-day" width="60" height="60"></canvas>
-          <div class="temp d-inline-block align-top">25</div>
-          <div class="scale d-inline-block align-top">&#8451;</div>
+          <canvas id="weatherIcon0" class="weather-icon-0" width="60" height="60"></canvas>
+          <div id="temp" class="temp d-inline-block align-top">25</div>
+          <div id="tempScale" class="temp-scale d-inline-block align-top">&#8451;</div>
         </div>
         <div class="description float-left">
-          <div class="humidity">54%</div>
-          <div class="pressure">200 mb</div>
-          <div class="wind">28.9 km/h WNW</div>
+          <div id="humidity" class="humidity">54%</div>
+          <div id="pressure" class="pressure">200 mb</div>
+          <div id="wind" class="wind">28.9 km/h WNW</div>
           <div class="feels-like">26&deg;</div>
-          <div class="visibility">25 km</div>
+          <div id="visibility" class="visibility">25 km</div>
         </div>
       </div>
 
@@ -47,67 +52,73 @@
         <div class="seven-day-fc row">
           <div class="date col-3 align-self-center">Today</div>
           <div class="col-3 align-self-center">
-            <canvas class="align-middle" id="clear-day" width="40" height="40"></canvas>
+            <canvas id="weatherIcon1" class="align-middle" width="40" height="40"></canvas>
           </div>
           <div class="seven-day-temp col-3">
             <div class="temp-high">40&deg;</div>
             <div class="temp-low">30&deg;</div>
           </div>
         </div>
+        <hr>
         <div class="seven-day-fc row">
           <div class="date col-3 align-self-center">Tue.</div>
           <div class="col-3 align-self-center">
-            <canvas class="align-middle" id="clear-night" width="40" height="40"></canvas>
+            <canvas id="weatherIcon2" class="align-middle" id="clear-night" width="40" height="40"></canvas>
           </div>
           <div class="seven-day-temp col-3">
             <div class="temp-high">40&deg;</div>
             <div class="temp-low">30&deg;</div>
           </div>
         </div>
+        <hr>
         <div class="seven-day-fc row">
           <div class="date col-3 align-self-center">Wed.</div>
           <div class="col-3 align-self-center">
-            <canvas class="align-middle" id="snow" width="40" height="40"></canvas>
+            <canvas id="weatherIcon3" class="align-middle" id="snow" width="40" height="40"></canvas>
           </div>
           <div class="seven-day-temp col-3">
             <div class="temp-high">40&deg;</div>
             <div class="temp-low">30&deg;</div>
           </div>
         </div>
+        <hr>
         <div class="seven-day-fc row">
           <div class="date col-3 align-self-center">Thu.</div>
           <div class="col-3 align-self-center">
-            <canvas class="align-middle" id="partly-cloudy-night" width="40" height="40"></canvas>
+            <canvas id="weatherIcon4" class="align-middle" id="partly-cloudy-night" width="40" height="40"></canvas>
           </div>
           <div class="seven-day-temp col-3">
             <div class="temp-high">40&deg;</div>
             <div class="temp-low">30&deg;</div>
           </div>
         </div>
+        <hr>
         <div class="seven-day-fc row">
           <div class="date col-3 align-self-center">Fri.</div>
           <div class="col-3 align-self-center">
-            <canvas class="align-middle" id="cloudy" width="40" height="40"></canvas>
+            <canvas id="weatherIcon5" class="align-middle" id="cloudy" width="40" height="40"></canvas>
           </div>
           <div class="seven-day-temp col-3">
             <div class="temp-high">40&deg;</div>
             <div class="temp-low">30&deg;</div>
           </div>
         </div>
+        <hr>
         <div class="seven-day-fc row">
           <div class="date col-3 align-self-center">Sat.</div>
           <div class="col-3 align-self-center">
-            <canvas class="align-middle" id="rain" width="40" height="40"></canvas>
+            <canvas id="weatherIcon6" class="align-middle" id="rain" width="40" height="40"></canvas>
           </div>
           <div class="seven-day-temp col-3">
             <div class="temp-high">40&deg;</div>
             <div class="temp-low">30&deg;</div>
           </div>
         </div>
+        <hr>
         <div class="seven-day-fc row">
           <div class="date col-3 align-self-center">Sun.</div>
           <div class="col-3 align-self-center">
-            <canvas class="align-middle" id="sleet" width="40" height="40"></canvas>
+            <canvas id="weatherIcon7" class="align-middle" id="sleet" width="40" height="40"></canvas>
           </div>
           <div class="seven-day-temp col-3">
             <div class="temp-high">40&deg;</div>
@@ -122,22 +133,29 @@
       </div>
 
     </div>
-
     <script src="js/skycons.js"></script>
 
     <script>
-      var icons = new Skycons({"color": "white"}),
-          list  = [
-            "clear-day", "clear-night", "partly-cloudy-day",
-            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-            "fog"
-          ],
-          i;
+      var skycons = new Skycons({"color": "white"});
+          
+      //list  = ["clear-day", "clear-night", "partly-cloudy-day", "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind", "fog"];
 
-      for(i = list.length; i--; )
-        icons.set(list[i], list[i]);
+      for (let i = 0;i < 8; i++) {
+        var canvasId = "weatherIcon" + i;
+        skycons.add(canvasId, Skycons.CLEAR_DAY); // Add canvas by id
+      }
+      
+      skycons.play(); // Start animation
 
-      icons.play();
+      /*
+      // want to change the icon? no problem:
+      skycons.set("icon1", Skycons.PARTLY_CLOUDY_NIGHT);
+
+      // want to remove one altogether? no problem:
+      skycons.remove("icon2");
+      */
     </script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/site.js"></script>
   </body>
 </html>

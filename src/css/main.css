@@ -1,6 +1,7 @@
 body {
   font-size: 0.8em;
   color: #fff;
+  line-height: 1.5;
 }
 
 hr {
@@ -13,7 +14,7 @@ hr {
   text-shadow: 1px 1px 1px rgba(0,0,0,.5);
 }
 
-.date, .summary {
+.date, .condition {
   text-shadow: 1px 1px 1px rgba(0,0,0,.5);
 }
 
@@ -41,7 +42,7 @@ hr {
   margin-right: 1rem;
 }
 
-.visual .weather-icon {
+.visual .weather-icon-0 {
   margin-top: 20px;
 }
 
@@ -49,7 +50,7 @@ hr {
   font-size: 2.5rem;
 }
 
-.visual .scale {
+.visual .temp-scale {
   margin-top: 15px;
 }
 
@@ -79,18 +80,15 @@ hr {
   content: "Visibility: ";
 }
 
-.description .humidity, .description .pressure, .description .wind, .description .feels-like, .description .visibility {
-}
-
 /*
  * SEVEN DAY
  */
 
 .seven-day {
   background: rgba(0, 0, 0, 0.5);
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
 }
 
 .seven-day-fc {
-  padding: 10px 0;
+  padding: 0.5rem 0;
 }
