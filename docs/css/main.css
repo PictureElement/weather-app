@@ -1,7 +1,7 @@
 body {
   font-size: 0.8em;
-  color: #eee;
-  font-family: 'Josefin Sans', sans-serif;
+  color: #fff;
+  line-height: 1.5;
 }
 
 hr {
@@ -9,17 +9,12 @@ hr {
   margin: 0;
 }
 
-.container {
-  padding-top: 1rem;
-}
-
 .location {
-  font-size: 3rem;
-  color: #fff;
+  font-size: 2.5rem;
   text-shadow: 1px 1px 1px rgba(0,0,0,.5);
 }
 
-.date, .summary {
+.date, .condition {
   text-shadow: 1px 1px 1px rgba(0,0,0,.5);
 }
 
@@ -47,24 +42,19 @@ hr {
   margin-right: 1rem;
 }
 
-.visual .weather-icon {
-  font-size: 50px;
-  display: inline-block;
-  color: #fff;
+.visual .weather-icon-0 {
+  margin-top: 20px;
 }
 
 .visual .temp {
-  font-size: 2rem;
-  display: inline-block;
-  vertical-align: top;
-  color: #fff;
+  font-size: 2.5rem;
 }
 
-.visual .scale {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 8px;
+.visual .temp-scale {
+  margin-top: 15px;
 }
+
+
 
 /*
  * DESCRIPTION
@@ -72,31 +62,22 @@ hr {
 
 .description .humidity::before {
   content: "Humidity: ";
-  color: #eee;
 }
 
 .description .pressure::before {
   content: "Pressure: ";
-  color: #eee;
 }
 
 .description .wind::before {
   content: "Wind: ";
-  color: #eee;
 }
 
 .description .feels-like::before {
   content: "Feels-like: ";
-  color: #eee;
 }
 
 .description .visibility::before {
   content: "Visibility: ";
-  color: #eee;
-}
-
-.description .humidity, .description .pressure, .description .wind, .description .feels-like, .description .visibility {
-  color: #fff;
 }
 
 /*
@@ -105,30 +86,9 @@ hr {
 
 .seven-day {
   background: rgba(0, 0, 0, 0.5);
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
 }
 
-.seven-day .weather-icon {
-  font-size: 30px;
+.seven-day-fc {
+  padding: 0.5rem 0;
 }
-
-.seven-day .weather-icon i {
-  margin-top: 10px;
-}
-
-.seven-day-fc .temp-high::after {
-  content: " HI";
-  font-size: 0.5rem;
-}
-
-.seven-day-fc .temp-low::after {
-  content: " LO";
-  font-size: 0.5rem;
-}
-
-
-
-
-
-
-
