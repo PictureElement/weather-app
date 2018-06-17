@@ -1,26 +1,11 @@
 body {
-  font-size: 0.8em;
+  font-size: 1rem;
   color: #fff;
-  line-height: 1.5;
 }
 
 hr {
   border-top: 1px solid rgba(255,255,255,.2);
   margin: 0;
-}
-
-.location {
-  font-size: 2.5rem;
-  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
-}
-
-.date, .condition {
-  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
-}
-
-.current {
-  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
-  margin: 0.5rem 0;
 }
 
 .background {
@@ -34,9 +19,27 @@ hr {
   opacity: 0.8;
 }
 
+.container {
+  max-width: 500px;
+}
+
+.user-input {
+  margin-top: 0.5rem;
+}
+
 /*
- * VISUAL
+ * CURRENT
  */
+
+.current {
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+.location {
+  font-size: 2.5rem;
+}
 
 .visual {
   margin-right: 1rem;
@@ -47,18 +50,13 @@ hr {
 }
 
 .visual .temp {
-  font-size: 2.5rem;
+  font-size: 4rem;
 }
 
 .visual .temp-scale {
+  font-size: 1.5rem;
   margin-top: 15px;
 }
-
-
-
-/*
- * DESCRIPTION
- */
 
 .description .humidity::before {
   content: "Humidity: ";
@@ -72,12 +70,20 @@ hr {
   content: "Wind: ";
 }
 
-.description .feels-like::before {
-  content: "Feels-like: ";
+.description .real-feel::before {
+  content: "RealFeel®: ";
 }
 
 .description .visibility::before {
   content: "Visibility: ";
+}
+
+.description .cloud-cover::before {
+  content: "Cloud cover: ";
+}
+
+.description .uv-index::before {
+  content: "UV-index: ";
 }
 
 /*
@@ -91,4 +97,15 @@ hr {
 
 .seven-day-fc {
   padding: 0.5rem 0;
+}
+
+.temp-high {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 443px) {
+  .description {
+    float: left !important;
+    margin-top: 0 !important;
+  }
 }
