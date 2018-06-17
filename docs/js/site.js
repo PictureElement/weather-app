@@ -1,80 +1,117 @@
-function loadData() {
+/*
+ * $.ajax()
+ * --------
+ * Perform an asynchronous HTTP (Ajax) request. The callback will get executed
+ * as soon as we get the response back from the server.
+ */
+
+function timeConverter(unix_timestamp){
+  var a = new Date(unix_timestamp * 1000);
+  var time = a.toUTCString();
+  return time;
+}
+
+function loadData(system) {
 
     var $location = $('#location');
     var $date = $('#date');
-    var $condition = $('#condition');
+    var $text = $('#text');
     var $temp = $('#temp');
     var $tempScale = $('#tempScale');
     var $humidity = $('#humidity');
     var $pressure = $('#pressure');
     var $wind = $('#wind');
+    var $realFeel = $('#realFeel');
     var $visibility = $('#visibility');
+    var $uvIndex = $('#uvIndex');
+    var $cloudCover = $('#cloudCover');
+    var $currentIcon = $('#currentIcon');
 
-    var location = $('#inputLocation').val();
-    var units = "c"; // c: metric, f: imperial
-    
-    var yahooWeatherUrl = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20u%3D%22' + units + '%22%20and%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + location + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
-    // Perform an asynchronous HTTP (Ajax) request. The callback will get 
-    // executed as soon as we get the response back from the server 
+    var city = $('#inputCity').val();
+    var apiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // accuweather api key
+  
+    var getCityURL = 'http://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + apiKey + '&q=' + city;
+
+    // Get location key
     $.ajax({
-      url: yahooWeatherUrl,
+      url: getCityURL,
       method: 'GET'
     }).done(function(result) { // Success
-      // Root object
-      var root = result.query.results.channel;
-      console.log(root);
-      // Location
-      console.log("location: " + root.location.city);
-      $location.text(root.location.city);
-      // Date
-      console.log("date: " + root.item.pubDate);
-      $date.text(root.item.pubDate);
-      // Condition
-      console.log("condition: " + root.item.condition.text);
-      $condition.text(root.item.condition.text);
-      // Temp
-      console.log("temp: " + root.item.condition.temp);
-      $temp.text(root.item.condition.temp);
-      // Temp scale
-      if (units === 'c') {
-        $tempScale.text('°C');
-      }
-      else {
-        $tempScale.text('°F');
-      }
-      // Humidity
-      console.log("humidity: " + root.atmosphere.humidity);
-      $humidity.text(root.atmosphere.humidity + '%');
-      // Pressure
-      console.log("pressure: " + root.atmosphere.pressure);
-      if (units === 'c') {
-        $pressure.text(root.atmosphere.pressure + ' mbar');
-      }
-      else {
-        $pressure.text(root.atmosphere.pressure + ' inHg');
-      }
-      // Wind
-      console.log("wind speed: " + root.wind.speed + ", wind direction: " + root.wind.direction);
-      if (units === 'c') {
-        $wind.text(root.wind.speed + ' kph ' + root.wind.direction);
-      }
-      else {
-        $wind.text(root.wind.speed + ' mph ' + root.wind.direction);
-      }
-      // Visibility
-      console.log("visibility: " + root.atmosphere.visibility);
-      if (units === 'c') {
-        $visibility.text(root.atmosphere.visibility + ' km');
-      }
-      else {
-        $visibility.text(root.atmosphere.visibility + ' mi');
-      }
+      var locationKey = result[0].Key;
+
+      var getCurrentConditionsURL = 'http://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + apiKey + '&details=true';
+
+      // Get current conditions
+      $.ajax({
+        url: getCurrentConditionsURL,
+        method: 'GET'
+      }).done(function(result) { // Success
+        console.log(result);
+        var unix_timestamp = result[0].EpochTime;
+        var date = timeConverter(unix_timestamp);
+        var text = result[0].WeatherText;
+        var humidity = result[0].RelativeHumidity + '%';
+        var cloudCover = result[0].CloudCover + '%';
+        var uvIndex = result[0].UVIndex + ', ' + result[0].UVIndexText;
+        var currentIcon = 'icons/conditions/' + result[0].WeatherIcon + '.svg';
+
+        // Metric
+        if (system === 'metric') {
+          var temp = Math.round(Number(result[0].Temperature.Metric.Value)).toString();
+          var tempScale = '℃';
+          var realFeel = Math.round(Number(result[0].RealFeelTemperature.Metric.Value)).toString() + ' ℃';
+          var wind = Math.round(Number(result[0].Wind.Speed.Metric.Value)).toString() + ' km/h, ' + result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
+          var visibility = Math.round(Number(result[0].Visibility.Metric.Value)).toString() + ' km';
+          var pressure = result[0].Pressure.Metric.Value + ' mb';
+        }
+        // Imperial
+        else {
+          var temp = Math.round(Number(result[0].Temperature.Imperial.Value)).toString();
+          var tempScale = '°F';
+          var realFeel = Math.round(Number(result[0].RealFeelTemperature.Imperial.Value)).toString() + ' °F';
+          var wind = Math.round(Number(result[0].Wind.Speed.Metric.Value)).toString() + ' mph, ' + result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
+          var visibility = Math.round(Number(result[0].Visibility.Metric.Value)).toString() + ' mi';
+          var pressure = result[0].Pressure.Metric.Value + ' in';
+        }
+
+        $location.text(city);
+        $date.text(date);
+        $text.text(text);
+        $temp.text(temp);
+        $tempScale.text(tempScale);
+        $realFeel.text(realFeel);
+        $humidity.text(humidity);
+        $wind.text(wind);
+        $visibility.text(visibility);
+        $pressure.text(pressure);
+        $cloudCover.text(cloudCover);
+        $uvIndex.text(uvIndex);
+        $currentIcon.attr("src", currentIcon);
+
+      }).fail(function(err) { // Error handling
+        console.log("error");
+        throw err;
+      });
     }).fail(function(err) { // Error handling
       console.log("error");
       throw err;
     });
 
+
+
+
+
+
+
+
+
+
+
     return false;
 }
 
-$('#formContainer').submit(loadData);
+$('form').submit(function(event) {
+  event.preventDefault();
+  var system = $('input[name="unitSystem"]:checked').val(); // metric or imperial
+  loadData(system);
+});
