@@ -11,7 +11,7 @@ function timeConverter(unix_timestamp){
   return time;
 }
 
-function loadData() {
+function loadData(system) {
 
     var $location = $('#location');
     var $date = $('#date');
@@ -25,6 +25,7 @@ function loadData() {
     var $visibility = $('#visibility');
     var $uvIndex = $('#uvIndex');
     var $cloudCover = $('#cloudCover');
+    var $currentIcon = $('#currentIcon');
 
     var city = $('#inputCity').val();
     var apiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // accuweather api key
@@ -49,21 +50,35 @@ function loadData() {
         var unix_timestamp = result[0].EpochTime;
         var date = timeConverter(unix_timestamp);
         var text = result[0].WeatherText;
-        var temp = result[0].Temperature.Metric.Value;
-        var realFeel = result[0].RealFeelTemperature.Metric.Value + ' ℃';
         var humidity = result[0].RelativeHumidity + '%';
-        var wind = result[0].Wind.Speed.Metric.Value + ' kph, ' + result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
-        var visibility = result[0].Visibility.Metric.Value + ' km';
-        var pressure = result[0].Pressure.Metric.Value + ' mb';
         var cloudCover = result[0].CloudCover + '%';
         var uvIndex = result[0].UVIndex + ', ' + result[0].UVIndexText;
+        var currentIcon = 'icons/conditions/' + result[0].WeatherIcon + '.svg';
 
-
+        // Metric
+        if (system === 'metric') {
+          var temp = Math.round(Number(result[0].Temperature.Metric.Value)).toString();
+          var tempScale = '℃';
+          var realFeel = Math.round(Number(result[0].RealFeelTemperature.Metric.Value)).toString() + ' ℃';
+          var wind = Math.round(Number(result[0].Wind.Speed.Metric.Value)).toString() + ' km/h, ' + result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
+          var visibility = Math.round(Number(result[0].Visibility.Metric.Value)).toString() + ' km';
+          var pressure = result[0].Pressure.Metric.Value + ' mb';
+        }
+        // Imperial
+        else {
+          var temp = Math.round(Number(result[0].Temperature.Imperial.Value)).toString();
+          var tempScale = '°F';
+          var realFeel = Math.round(Number(result[0].RealFeelTemperature.Imperial.Value)).toString() + ' °F';
+          var wind = Math.round(Number(result[0].Wind.Speed.Metric.Value)).toString() + ' mph, ' + result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
+          var visibility = Math.round(Number(result[0].Visibility.Metric.Value)).toString() + ' mi';
+          var pressure = result[0].Pressure.Metric.Value + ' in';
+        }
 
         $location.text(city);
         $date.text(date);
-        $condition.text(condition);
+        $text.text(text);
         $temp.text(temp);
+        $tempScale.text(tempScale);
         $realFeel.text(realFeel);
         $humidity.text(humidity);
         $wind.text(wind);
@@ -71,8 +86,7 @@ function loadData() {
         $pressure.text(pressure);
         $cloudCover.text(cloudCover);
         $uvIndex.text(uvIndex);
-
-
+        $currentIcon.attr("src", currentIcon);
 
       }).fail(function(err) { // Error handling
         console.log("error");
@@ -96,4 +110,8 @@ function loadData() {
     return false;
 }
 
-$('#submitBtn').click(loadData);
+$('form').submit(function(event) {
+  event.preventDefault();
+  var system = $('input[name="unitSystem"]:checked').val(); // metric or imperial
+  loadData(system);
+});

@@ -9,20 +9,37 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Default Stylesheet -->
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
 
     <!-- Background image -->
     <img class="background" src="css/bg.jpg" alt="background image">
 
-    <div class="container">
+    <div class="container p-2">
 
-      <div class="user-input input-group">
-        <input id="inputCity" class="form-control" type="search" placeholder="City" aria-label="City" value="">
-        <div class="input-group-append">
-          <button id="submitBtn" class="btn btn-outline-success" type="submit">Submit</button>
+      <form class="rounded">
+        <input id="inputCity" class="form-control" type="search" placeholder="City" aria-label="City">
+        <div id="btnToggle" class="d-block my-2">
+          <div class="custom-control custom-radio">
+            <input id="metric" name="unitSystem" type="radio" class="custom-control-input" checked value="metric">
+            <label class="custom-control-label" for="metric">Metric</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="imperial" name="unitSystem" type="radio" class="custom-control-input" value="imperial">
+            <label class="custom-control-label" for="imperial">Imperial</label>
+          </div>
         </div>
-      </div>
+        <div class="form-group row mb-0">
+          <div class="col-sm-12">
+            <button id="submitBtn" class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+
+
+
+
       
       <!-- Current conditions -->
       <div class="current rounded">
@@ -31,21 +48,21 @@
         <!-- current date -->
         <div id="date" class="date">Wed, 30 May 2018 12:00 PM EEST</div>
         <!-- current text -->
-        <div id="text" class="text">Partly Cloudy</div>
+        <div id="text" class="text">T-storms</div>
         <!-- current condition -->
         <div class="condition clearfix">
           <div class="visual float-left">
-            <img src="icons/conditions/41.svg" width="100" height="100">
-            <div id="temp" class="temp d-inline-block align-top">25</div>
+            <img id="currentIcon" src="icons/conditions/41.svg" width="100" height="100">
+            <div id="temp" class="temp d-inline-block align-top">-11</div>
             <div id="tempScale" class="temp-scale d-inline-block align-top">&#8451;</div>
           </div>
           <div class="description float-right mt-3">
-            <div id="humidity" class="humidity">54%</div>
-            <div id="pressure" class="pressure">950 mb</div>
-            <div id="wind" class="wind">11.1 kph, 180° (S)</div>
-            <div id="realFeel" class="real-feel">26 ℃</div>
-            <div id="visibility" class="visibility">25 km</div>
-            <div id="cloudCover" class="cloud-cover">45%</div>
+            <div id="humidity" class="humidity">75%</div>
+            <div id="pressure" class="pressure">1020 mb</div>
+            <div id="wind" class="wind">211 km/h, 180° (SSW)</div>
+            <div id="realFeel" class="real-feel">-12 ℃</div>
+            <div id="visibility" class="visibility">2 km</div>
+            <div id="cloudCover" class="cloud-cover">100%</div>
             <div id="uvIndex" class="uv-index">4, Moderate</div>
           </div>
         </div>
@@ -109,8 +126,28 @@
         </div>
       </div>
 
+      <footer class="rounded">
+        <div>
+          <a href="http://www.accuweather.com/">
+            <i class="fa fa-bolt" aria-hidden="true"></i> 
+            by 
+            <img src="icons/misc/accuweather-logo.png" width="90">,
+          </a>
+          <a href="https://pictureelement.github.io/portfolio-2/">
+            <i class="fa fa-code" aria-hidden="true"></i> 
+            with 
+            <i class="fa fa-heart" aria-hidden="true"></i> 
+            by 
+            <span style="color:#f05514;font-weight:bold;">PictureElement</span>            
+          </a>
+        </div>
+      </footer>
+
+
+
     </div>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/site.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
 </html>
