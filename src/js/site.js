@@ -30,7 +30,7 @@ function loadData(system) {
     var city = $('#inputCity').val();
     var apiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // accuweather api key
   
-    var getCityURL = 'http://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + apiKey + '&q=' + city;
+    var getCityURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + apiKey + '&q=' + city;
 
     // Get location key
     $.ajax({
@@ -39,7 +39,7 @@ function loadData(system) {
     }).done(function(result) { // Success
       var locationKey = result[0].Key;
 
-      var getCurrentConditionsURL = 'http://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + apiKey + '&details=true';
+      var getCurrentConditionsURL = 'https://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + apiKey + '&details=true';
 
       // Get current conditions
       $.ajax({
