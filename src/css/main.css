@@ -4,45 +4,12 @@ body {
 }
 
 hr {
-  border-top: 1px solid rgba(255,255,255,.2);
+  border-top: 1px solid rgba(255,255,255,.1);
   margin: 0;
 }
 
-form {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem;
-}
-
-footer {
-  background: rgba(0, 0, 0, 0.5);
-  margin-top: 0.5rem;
-  text-align: center;
-  padding: 0.5rem;
-  font-size: 12px;
-}
-
-.fa.fa-code {
-  position: relative;
-  top: 1px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #f05514;
-}
-
-.fa.fa-heart {
-  position: relative;
-  top: 1px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #f05514;
-}
-
-.fa.fa-bolt {
-  position: relative;
-  top: 1px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #f05514;
+form, .current, .main-forecast, footer, .details {
+  background: rgba(0, 0, 0, 0.6);
 }
 
 a {
@@ -70,14 +37,8 @@ a:hover {
 }
 
 /*
- * CURRENT
+ * CURRENT CONDITIONS
  */
-
-.current {
-  background: rgba(0, 0, 0, 0.5);
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-}
 
 .location {
   font-size: 2.5rem;
@@ -85,10 +46,6 @@ a:hover {
 
 .visual {
   margin-right: 1rem;
-}
-
-.visual .weather-icon-0 {
-  margin-top: 20px;
 }
 
 .visual .temp {
@@ -100,54 +57,163 @@ a:hover {
   margin-top: 15px;
 }
 
-.description .humidity::before {
-  content: "Humidity: ";
+.visual {
+  float: none;
 }
 
-.description .pressure::before {
-  content: "Pressure: ";
+.current-details {
+  float: none;
 }
 
-.description .wind::before {
-  content: "Wind: ";
-}
-
-.description .real-feel::before {
+.real-feel::before {
   content: "RealFeel®: ";
 }
 
-.description .visibility::before {
-  content: "Visibility: ";
-}
-
-.description .cloud-cover::before {
-  content: "Cloud cover: ";
-}
-
-.description .uv-index::before {
+.uv-index::before {
   content: "UV-index: ";
 }
 
+.air-quality::before {
+  content: "Air quality: ";
+}
+
 /*
- * SEVEN DAY
+ * MAIN FORECAST
  */
 
-.seven-day {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0 0.5rem;
-}
-
-.seven-day-fc {
-  padding: 0.5rem 0;
-}
-
-.temp-high {
+.temp-high, .precip-day {
   font-weight: bold;
 }
 
-@media only screen and (max-width: 443px) {
-  .description {
-    float: left !important;
-    margin-top: 0 !important;
+/*
+ * DETAILS
+ */
+ 
+.humidity::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f07a";
+  font-size: 30px;
+}
+
+.pressure::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f079";
+  font-size: 30px;
+}
+
+.wind-speed::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f050";
+  font-size: 30px;
+}
+
+.wind-direction::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f0b1";
+  font-size: 30px;
+}
+
+.visibility::before {
+  display: block;
+  font-family: FontAwesome;
+  content: "\f1e5";
+  font-size: 30px;
+}
+
+.cloud-cover::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f013";
+  font-size: 30px;
+}
+
+.sunrise::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f051";
+  font-size: 30px;
+}
+
+.sunset::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f052";
+  font-size: 30px;
+}
+
+.moonrise::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f0c9";
+  font-size: 30px;
+}
+
+.moonset::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f0ca";
+  font-size: 30px;
+}
+
+.moon-phase::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f0d4";
+  font-size: 30px;
+}
+
+.beaufort::before {
+  display: block;
+  font-family: weathericons;
+  content: "\f0c3";
+  font-size: 30px;
+}
+
+/*
+ * FOOTER
+ */
+
+footer {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 12px;
+}
+
+.fa.fa-code {
+  position: relative;
+  top: 1px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.fa.fa-heart {
+  position: relative;
+  top: 1px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.fa.fa-bolt {
+  position: relative;
+  top: 1px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+@media (min-width: 440px) {
+  .visual {
+    float: left;
+  }
+
+  .current-details {
+    float: right;
+    margin-top: 1rem;
   }
 }
