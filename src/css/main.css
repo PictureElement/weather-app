@@ -159,17 +159,19 @@ a:hover {
   font-size: 30px;
 }
 
-.moon-phase::before {
+.moon-phase i {
   display: block;
-  font-family: weathericons;
-  content: "\f0d4";
+  height: 45px;
   font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .beaufort::before {
   display: block;
   font-family: weathericons;
-  content: "\f0c3";
+  content: "\f050";
   font-size: 30px;
 }
 

@@ -13,13 +13,13 @@ function formatDate(string) {
 
 function getDay(string) {
   var weekday = new Array(7);
-  weekday[0]="Sun";
-  weekday[1]="Mon";
-  weekday[2]="Tue";
-  weekday[3]="Wed";
-  weekday[4]="Thu";
-  weekday[5]="Fri";
-  weekday[6]="Sat";
+  weekday[0] = "Sun";
+  weekday[1] = "Mon";
+  weekday[2] = "Tue";
+  weekday[3] = "Wed";
+  weekday[4] = "Thu";
+  weekday[5] = "Fri";
+  weekday[6] = "Sat";
   var date = new Date(string);
   var day = date.getDay();
   return weekday[day];
@@ -27,83 +27,223 @@ function getDay(string) {
 
 function getTime(string) {
   var date = new Date(string);
-  var time = date.getHours();
-  if (time < 10) {
-    time = '0' + time + ':' + date.getMinutes();
+  var hours = date.getHours();
+  if (hours < 10) {
+    hours = '0' + hours;
+  }
+  var minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
+  var time = hours + ':' + minutes;
+  return time;
+}
+
+function getMoonPhaseClass(age) {
+  var phase = new Array(28);
+  phase[0] = "wi-moon-new";
+  phase[1] = "wi-moon-waxing-crescent-1";
+  phase[2] = "wi-moon-waxing-crescent-2";
+  phase[3] = "wi-moon-waxing-crescent-3";
+  phase[4] = "wi-moon-waxing-crescent-4";
+  phase[5] = "wi-moon-waxing-crescent-5";
+  phase[6] = "wi-moon-waxing-crescent-6";
+  phase[7] = "wi-moon-first-quarter";
+  phase[8] = "wi-moon-waxing-gibbous-1";
+  phase[9] = "wi-moon-waxing-gibbous-2";
+  phase[10] = "wi-moon-waxing-gibbous-3";
+  phase[11] = "wi-moon-waxing-gibbous-4";
+  phase[12] = "wi-moon-waxing-gibbous-5";
+  phase[13] = "wi-moon-waxing-gibbous-6";
+  phase[14] = "wi-moon-full";
+  phase[15] = "wi-moon-waning-gibbous-1";
+  phase[16] = "wi-moon-waning-gibbous-2";
+  phase[17] = "wi-moon-waning-gibbous-3";
+  phase[18] = "wi-moon-waning-gibbous-4";
+  phase[19] = "wi-moon-waning-gibbous-5";
+  phase[20] = "wi-moon-waning-gibbous-6";
+  phase[21] = "wi-moon-third-quarter";
+  phase[22] = "wi-moon-waning-crescent-1";
+  phase[23] = "wi-moon-waning-crescent-2";
+  phase[24] = "wi-moon-waning-crescent-3";
+  phase[25] = "wi-moon-waning-crescent-4";
+  phase[26] = "wi-moon-waning-crescent-5";
+  phase[27] = "wi-moon-waning-crescent-6";
+  return phase[age];
+}
+
+function getBeaufort(windSpeed, system) {
+  if (system === 'metric') {
+    if (windSpeed < 1) {
+      return '0';
+    }
+    else if (windSpeed <= 5) {
+      return '1';
+    }
+    else if (windSpeed <= 11) {
+      return '2';
+    }
+    else if (windSpeed <= 19) {
+      return '3';
+    }
+    else if (windSpeed <= 28) {
+      return '4';
+    }
+    else if (windSpeed <= 38) {
+      return '5';
+    }
+    else if (windSpeed <= 49) {
+      return '6';
+    }
+    else if (windSpeed <= 61) {
+      return '7';
+    }
+    else if (windSpeed <= 74) {
+      return '8';
+    }
+    else if (windSpeed <= 88) {
+      return '9';
+    }
+    else if (windSpeed <= 102) {
+      return '10';
+    }
+    else if (windSpeed <= 117) {
+      return '11';
+    }
+    else {
+      return '12';
+    }
   }
   else {
-    time = time + ':' + date.getMinutes();
+    if (windSpeed < 1) {
+      return '0';
+    }
+    else if (windSpeed <= 3) {
+      return '1';
+    }
+    else if (windSpeed <= 7) {
+      return '2';
+    }
+    else if (windSpeed <= 12) {
+      return '3';
+    }
+    else if (windSpeed <= 18) {
+      return '4';
+    }
+    else if (windSpeed <= 24) {
+      return '5';
+    }
+    else if (windSpeed <= 31) {
+      return '6';
+    }
+    else if (windSpeed <= 38) {
+      return '7';
+    }
+    else if (windSpeed <= 46) {
+      return '8';
+    }
+    else if (windSpeed <= 54) {
+      return '9';
+    }
+    else if (windSpeed <= 63) {
+      return '10';
+    }
+    else if (windSpeed <= 72) {
+      return '11';
+    }
+    else {
+      return '12';
+    }
   }
-  return time;
 }
 
 function loadData(system) {
 
+    // CURRENT CONDITIONS
     var $location = $('#location');
     var $date = $('#date');
     var $text = $('#text');
     var $temp = $('#temp');
     var $tempScale = $('#tempScale');
+    var $icon = $('#icon');
+    var $realFeel = $('#realFeel');
+    var $uvIndex = $('#uvIndex');
+    var $airQuality = $('#airQuality');
+
+    // DETAILS
     var $humidity = $('#humidity');
     var $pressure = $('#pressure');
-    var $wind = $('#wind');
-    var $realFeel = $('#realFeel');
+    var $windSpeed = $('#windSpeed');
+    var $windDirection = $('#windDirection');
     var $visibility = $('#visibility');
-    var $uvIndex = $('#uvIndex');
     var $cloudCover = $('#cloudCover');
-    var $icon = $('#icon');
-    var $airQuality = $('#airQuality');
     var $sunrise = $('#sunrise');
     var $sunset = $('#sunset');
     var $moonrise = $('#moonrise');
     var $moonset = $('#moonset');
+    var $moonPhase = $('#moonPhase');
+    var $beaufort = $('#beaufort');
 
     var inputCity = $('#inputCity').val();
     var apiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // Accuweather api key
   
-    var getLocationURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + apiKey + '&q=' + inputCity;
+    var locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + apiKey + '&q=' + inputCity;
 
     // Get location key
     $.ajax({
-      url: getLocationURL,
+      url: locationResourceURL,
       method: 'GET'
     }).done(function(result) { // Success
       
-      var locationKey = result[0].Key;
-      var location = result[0].EnglishName;
+      var locationKey = result[0].Key; // Location key
+      var location = result[0].EnglishName; // City name
       
-      var getCurrentConditionsURL = 'https://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + apiKey + '&details=true';
+      var currentConditionsResourceURL = 'https://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + apiKey + '&details=true';
 
       // Get current conditions
       $.ajax({
-        url: getCurrentConditionsURL,
+        url: currentConditionsResourceURL,
         method: 'GET'
       }).done(function(result) { // Success
+        
         console.log(result[0]);
+        
         var date = formatDate(result[0].LocalObservationDateTime);
         var text = result[0].WeatherText;
-        var humidity = result[0].RelativeHumidity + '%';
-        var cloudCover = result[0].CloudCover + '%';
-        var uvIndex = result[0].UVIndex + ', ' + result[0].UVIndexText;
+        var temp;
+        var tempScale;
         var icon = 'icons/conditions/' + result[0].WeatherIcon + '.svg';
-
+        var realFeel;
+        var uvIndex = result[0].UVIndex + ', ' + result[0].UVIndexText;
+        var humidity = result[0].RelativeHumidity + '%';
+        var pressure;
+        var windSpeed;
+        var beaufort;
+        var windDirection;
+        var visibility;
+        var cloudCover = result[0].CloudCover + '%';
+       
         // Metric
         if (system === 'metric') {
-          var temp = Math.round(Number(result[0].Temperature.Metric.Value)).toString();
-          var tempScale = '℃';
-          var realFeel = Math.round(Number(result[0].RealFeelTemperature.Metric.Value)).toString() + ' ℃';
-          var wind = Math.round(Number(result[0].Wind.Speed.Metric.Value)).toString() + ' km/h, ' + result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
-          var visibility = Math.round(Number(result[0].Visibility.Metric.Value)).toString() + ' km';
-          var pressure = result[0].Pressure.Metric.Value + ' mb';
+          temp = Math.round(result[0].Temperature.Metric.Value).toString();
+          tempScale = '℃';
+          realFeel = Math.round(result[0].RealFeelTemperature.Metric.Value).toString() + ' ℃';
+          pressure = Math.round(result[0].Pressure.Metric.Value).toString() + ' mb';
+          windSpeed = Math.round(result[0].Wind.Speed.Metric.Value).toString() + ' km/h';
+          beaufort = getBeaufort(Math.round(result[0].Wind.Speed.Metric.Value), system) + ' B';
+          windDirection = result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
+          visibility = Math.round(result[0].Visibility.Metric.Value).toString() + ' km';
         }
         // Imperial
         else {
-          var temp = Math.round(Number(result[0].Temperature.Imperial.Value)).toString();
-          var tempScale = '°F';
-          var realFeel = Math.round(Number(result[0].RealFeelTemperature.Imperial.Value)).toString() + ' °F';
-          var wind = Math.round(Number(result[0].Wind.Speed.Metric.Value)).toString() + ' mph, ' + result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
-          var visibility = Math.round(Number(result[0].Visibility.Metric.Value)).toString() + ' mi';
-          var pressure = result[0].Pressure.Metric.Value + ' in';
+          temp = Math.round(result[0].Temperature.Imperial.Value).toString();
+          tempScale = '°F';
+          realFeel = Math.round(result[0].RealFeelTemperature.Imperial.Value).toString() + ' °F';
+          pressure = Math.round(result[0].Pressure.Imperial.Value).toString() + ' inHg';
+          windSpeed = Math.round(result[0].Wind.Speed.Imperial.Value).toString() + ' mph';
+          beaufort = getBeaufort(Math.round(result[0].Wind.Speed.Imperial.Value), system) + ' B';
+          windDirection = result[0].Wind.Direction.Degrees + '°' + ' (' + result[0].Wind.Direction.English + ')';
+          visibility = Math.round(result[0].Visibility.Imperial.Value).toString() + ' mi';
         }
 
         $location.text(location);
@@ -111,14 +251,17 @@ function loadData(system) {
         $text.text(text);
         $temp.text(temp);
         $tempScale.text(tempScale);
-        $realFeel.text(realFeel);
-        $humidity.text(humidity);
-        $wind.text(wind);
-        $visibility.text(visibility);
-        $pressure.text(pressure);
-        $cloudCover.text(cloudCover);
-        $uvIndex.text(uvIndex);
         $icon.attr("src", icon);
+        $realFeel.text(realFeel);
+        $uvIndex.text(uvIndex);
+        $humidity.text(humidity);
+        $pressure.text(pressure);
+        $windSpeed.text(windSpeed);
+        $beaufort.text(beaufort);
+        $windDirection.text(windDirection);
+        $visibility.text(visibility);
+        $cloudCover.text(cloudCover);
+        
       }).fail(function(err) { // Error handling
         console.log("error");
         throw err;
@@ -126,18 +269,19 @@ function loadData(system) {
 
       // Metric
       if (system === 'metric') {
-        var getForecastMainURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=true';
+        var forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=true';
       }
       // Imperial
       else {
-        var getForecastURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=false';
+        var forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=false';
       }
 
       // Get main forecast
       $.ajax({
-        url: getForecastMainURL,
+        url: forecastResourceURL,
         method: 'GET'
       }).done(function(result) { // Success
+
         console.log(result.DailyForecasts);
         
         var airQuality = result.DailyForecasts[0].AirAndPollen[0].Category;
@@ -145,16 +289,18 @@ function loadData(system) {
         var sunset = getTime(result.DailyForecasts[0].Sun.Set);
         var moonrise = getTime(result.DailyForecasts[0].Moon.Rise);
         var moonset = getTime(result.DailyForecasts[0].Moon.Set);
-
+        var moonPhase = '<i class="wi ' + getMoonPhaseClass(result.DailyForecasts[0].Moon.Age) + '"></i>' + result.DailyForecasts[0].Moon.Phase;
+        
         $airQuality.text(airQuality);
-        $sunrise = text(sunrise);
-        $sunset = text(sunset);
-        $moonrise = text(moonrise);
-        $moonset = text(moonset);
+        $sunrise.text(sunrise);
+        $sunset.text(sunset);
+        $moonrise.text(moonrise);
+        $moonset.text(moonset);
+        $moonPhase.empty();
+        $moonPhase.append(moonPhase);
 
         for (var i = 0; i < 5; i++) {
           var day = getDay(result.DailyForecasts[i].Date);
-          console.log(day);
           var icon = 'icons/conditions/' + result.DailyForecasts[i].Day.Icon + '.svg';
           var tempHigh = Math.round(Number(result.DailyForecasts[i].Temperature.Maximum.Value)).toString() + '°';
           var tempLow = Math.round(Number(result.DailyForecasts[i].Temperature.Minimum.Value)).toString() + '°';
