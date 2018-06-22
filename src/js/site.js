@@ -289,7 +289,7 @@ function loadData(system) {
         var sunset = getTime(result.DailyForecasts[0].Sun.Set);
         var moonrise = getTime(result.DailyForecasts[0].Moon.Rise);
         var moonset = getTime(result.DailyForecasts[0].Moon.Set);
-        var moonPhase = '<i class="wi ' + getMoonPhaseClass(result.DailyForecasts[0].Moon.Age) + '"></i>' + result.DailyForecasts[0].Moon.Phase;
+        var moonPhase = '<i class="wi ' + getMoonPhaseClass(result.DailyForecasts[0].Moon.Age) + '"></i>' + result.DailyForecasts[0].Moon.Phase.replace(/([A-Z])/g, ' $1');
         
         $airQuality.text(airQuality);
         $sunrise.text(sunrise);
