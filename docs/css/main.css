@@ -8,7 +8,7 @@ hr {
   margin: 0;
 }
 
-form, .current, .main-forecast, footer, .details {
+form, .current, .hourly-forecast, .main-forecast, footer, .details {
   background: rgba(0, 0, 0, 0.6);
 }
 
@@ -75,6 +75,19 @@ a:hover {
 
 .air-quality::before {
   content: "Air quality: ";
+}
+
+/* 
+ * HOURLY FORECAST
+ */
+
+.hourly-forecast {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.hourly-forecast div {
+  display: inline-block;
 }
 
 /*

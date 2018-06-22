@@ -206,7 +206,7 @@ function loadData(system) {
         method: 'GET'
       }).done(function(result) { // Success
         
-        console.log(result[0]);
+        //console.log(result[0]);
         
         var date = formatDate(result[0].LocalObservationDateTime);
         var text = result[0].WeatherText;
@@ -270,11 +270,40 @@ function loadData(system) {
       // Metric
       if (system === 'metric') {
         var forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=true';
+        var hourlyForecastResourseURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + locationKey + '?apikey=' + apiKey + '&metric=true';
       }
       // Imperial
       else {
         var forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=false';
+        var hourlyForecastResourseURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + locationKey + '?apikey=' + apiKey + '&metric=true';
       }
+
+      // Get hourly forecast
+      $.ajax({
+        url: hourlyForecastResourseURL,
+        method: 'GET'
+      }).done(function(result) { // Success
+
+        //console.log(result);
+
+        for (var i = 0; i < 12; i++) {
+          var time = getTime(result[i].DateTime);
+          var hourlyIcon = 'icons/conditions/' + result[i].WeatherIcon + '.svg';
+          var hourlyTemp = Math.round(result[i].Temperature.Value).toString() + '°';
+
+          var $time = $('#time-' + i);
+          var $hourlyIcon = $('#hourly-icon-' + i);
+          var $hourlyTemp = $('#hourly-temp-' + i);
+
+          $time.text(time);
+          $hourlyIcon.attr('src', hourlyIcon);
+          $hourlyTemp.text(hourlyTemp);
+        }
+
+      }).fail(function(err) { // Error handling
+        console.log("error");
+        throw err;
+      });
 
       // Get main forecast
       $.ajax({
@@ -282,14 +311,14 @@ function loadData(system) {
         method: 'GET'
       }).done(function(result) { // Success
 
-        console.log(result.DailyForecasts);
+        //console.log(result.DailyForecasts);
         
         var airQuality = result.DailyForecasts[0].AirAndPollen[0].Category;
         var sunrise = getTime(result.DailyForecasts[0].Sun.Rise);
         var sunset = getTime(result.DailyForecasts[0].Sun.Set);
         var moonrise = getTime(result.DailyForecasts[0].Moon.Rise);
         var moonset = getTime(result.DailyForecasts[0].Moon.Set);
-        var moonPhase = '<i class="wi ' + getMoonPhaseClass(result.DailyForecasts[0].Moon.Age) + '"></i>' + result.DailyForecasts[0].Moon.Phase;
+        var moonPhase = '<i class="wi ' + getMoonPhaseClass(result.DailyForecasts[0].Moon.Age) + '"></i>' + result.DailyForecasts[0].Moon.Phase.replace(/([A-Z])/g, ' $1');
         
         $airQuality.text(airQuality);
         $sunrise.text(sunrise);
@@ -302,8 +331,8 @@ function loadData(system) {
         for (var i = 0; i < 5; i++) {
           var day = getDay(result.DailyForecasts[i].Date);
           var icon = 'icons/conditions/' + result.DailyForecasts[i].Day.Icon + '.svg';
-          var tempHigh = Math.round(Number(result.DailyForecasts[i].Temperature.Maximum.Value)).toString() + '°';
-          var tempLow = Math.round(Number(result.DailyForecasts[i].Temperature.Minimum.Value)).toString() + '°';
+          var tempHigh = Math.round(result.DailyForecasts[i].Temperature.Maximum.Value).toString() + '°';
+          var tempLow = Math.round(result.DailyForecasts[i].Temperature.Minimum.Value).toString() + '°';
           var precipDay = result.DailyForecasts[i].Day.PrecipitationProbability + '%';
           var precipNight = result.DailyForecasts[i].Night.PrecipitationProbability + '%';
 

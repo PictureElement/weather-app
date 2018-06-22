@@ -17,7 +17,7 @@
     <img class="background" src="css/bg.jpg" alt="background image">
 
     <!-- FORM -->
-    <form class="container rounded py-3">
+    <form class="container py-3">
       <input id="inputCity" class="form-control" type="search" placeholder="City" aria-label="City">
       <div id="btnToggle" class="d-block my-3">
         <div class="custom-control custom-radio">
@@ -37,7 +37,7 @@
     </form>
     
     <!-- CURRENT CONDITIONS -->
-    <div class="container current rounded py-3 mt-2">
+    <div class="container current p-3 mt-2">
       <div id="location" class="location">San Francisco</div>
       <div id="date" class="date">Wed, 30 May 2018 12:00 PM EEST</div>
       <div id="text" class="text">T-storms</div>
@@ -54,9 +54,73 @@
         </div>
       </div>
     </div>
+
+    <!-- HOURLY FORECAST -->
+    <div class="hourly-forecast container text-center p-3 mt-2">
+      <div class="align-self-center">
+        <div id="time-0" class="d-block">13:00</div>
+        <img id="hourly-icon-0" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-0" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-1" class="d-block">13:00</div>
+        <img id="hourly-icon-1" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-1" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-2" class="d-block">14:00</div>
+        <img id="hourly-icon-2" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-2" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-3" class="d-block">15:00</div>
+        <img id="hourly-icon-3" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-3" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-4" class="d-block">16:00</div>
+        <img id="hourly-icon-4" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-4" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-5" class="d-block">17:00</div>
+        <img id="hourly-icon-5" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-5" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-6" class="d-block">18:00</div>
+        <img id="hourly-icon-6" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-6" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-7" class="d-block">19:00</div>
+        <img id="hourly-icon-7" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-7" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-8" class="d-block">20:00</div>
+        <img id="hourly-icon-8" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-8" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-9" class="d-block">21:00</div>
+        <img id="hourly-icon-9" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-9" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-10" class="d-block">22:00</div>
+        <img id="hourly-icon-10" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-10" class="d-block">27&deg;</div>
+      </div>
+      <div class="align-self-center">
+        <div id="time-11" class="d-block">23:00</div>
+        <img id="hourly-icon-11" src="icons/conditions/1.svg" width="60" height="60">
+        <div id="hourly-temp-11" class="d-block">27&deg;</div>
+      </div>
+    </div>
       
     <!-- MAIN FORECAST -->
-    <div class="main-forecast container rounded text-center mt-2">
+    <div class="main-forecast container text-center mt-2">
       <div class="row">
         <div id="day-0" class="col-3 align-self-center text-left">Today</div>
         <div class="col-3 align-self-center">
@@ -134,7 +198,7 @@
     </div>
 
     <!-- DETAILS -->
-    <div class="details container rounded text-center py-3 mt-2">
+    <div class="details container text-center py-3 mt-2">
       <div class="row">
         <div id="humidity" class="col-3 humidity text-center">75%</div>
         <div id="pressure" class="col-3 pressure text-center">1020 mb</div>
@@ -156,7 +220,7 @@
     </div>
        
     <!-- FOOTER -->
-    <footer class="container rounded py-3">
+    <footer class="container py-3">
       <div>
         <a href="https://www.accuweather.com/">
           <i class="fa fa-bolt" aria-hidden="true"></i> 
