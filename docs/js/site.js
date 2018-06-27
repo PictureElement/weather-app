@@ -1,10 +1,3 @@
-/*
- * $.ajax()
- * --------
- * Perform an asynchronous HTTP (Ajax) request. The callback will get executed
- * as soon as we get the response back from the server.
- */
-
 function formatDate(string) {
   var date = new Date(string);
   var formattedDay = date.toString();
@@ -183,13 +176,14 @@ function loadData(system) {
     var $moonset = $('#moonset');
     var $moonPhase = $('#moonPhase');
     var $beaufort = $('#beaufort');
-
+    var $background = $('#background');
+    
     var inputCity = $('#inputCity').val();
     var apiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // Accuweather api key
   
     var locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + apiKey + '&q=' + inputCity;
 
-    // Get location key
+    // Get location key (Accuweather Location API)
     $.ajax({
       url: locationResourceURL,
       method: 'GET'
@@ -197,16 +191,62 @@ function loadData(system) {
       
       var locationKey = result[0].Key; // Location key
       var location = result[0].EnglishName; // City name
+
+      var placeIDsResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=d8aaa725663506bab63f8a0067a5fe54&query=' + location + '&format=json&nojsoncallback=1';
+
+      // Get a list of place IDs (Flickr API: flickr.places.find)
+      $.ajax({
+        url: placeIDsResourceURL,
+        method: 'GET'
+      }).done(function(result) { // Success
+        
+        var placeId = result.places.place[0].place_id; // Place id
+        
+        var photosResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d8aaa725663506bab63f8a0067a5fe54&tags=city&content_type=1&place_id=' + placeId + '&format=json&nojsoncallback=1';
+
+        // Get a list of photos (Flickr API: flickr.photos.search)
+        $.ajax({
+          url: photosResourceURL,
+          method: 'GET'
+        }).done(function(result) { // Success
+          
+          var photoId = result.photos.photo[0].id;
+
+          var photoSizesResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=d8aaa725663506bab63f8a0067a5fe54&photo_id=' + photoId + '&format=json&nojsoncallback=1';
+
+          // Get the available sizes for a photo (Flickr API: flickr.photos.getSizes)
+          $.ajax({
+            url: photoSizesResourceURL,
+            method: 'GET'
+          }).done(function(result) {
+
+            var len = result.sizes['size'].length;
+            var photoURL = result.sizes['size'][len - 2].source;
+
+            $background.attr("src", photoURL); // Set background image
+            
+          }).fail(function(err) { // Error handling
+            console.log("error");
+            throw err;
+          });
+
+        }).fail(function(err) { // Error handling
+          console.log("error");
+          throw err;
+        });
+
+      }).fail(function(err) { // Error handling
+        console.log("error");
+        throw err;
+      });
       
       var currentConditionsResourceURL = 'https://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + apiKey + '&details=true';
 
-      // Get current conditions
+      // Get current conditions (Accuweather Current Conditions API)
       $.ajax({
         url: currentConditionsResourceURL,
         method: 'GET'
       }).done(function(result) { // Success
-        
-        //console.log(result[0]);
         
         var date = formatDate(result[0].LocalObservationDateTime);
         var text = result[0].WeatherText;
@@ -278,7 +318,7 @@ function loadData(system) {
         var hourlyForecastResourseURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + locationKey + '?apikey=' + apiKey + '&metric=true';
       }
 
-      // Get hourly forecast
+      // Get hourly forecast (Accuweather Forecast API)
       $.ajax({
         url: hourlyForecastResourseURL,
         method: 'GET'
@@ -305,13 +345,11 @@ function loadData(system) {
         throw err;
       });
 
-      // Get main forecast
+      // Get main forecast (Accuweather Forecast API)
       $.ajax({
         url: forecastResourceURL,
         method: 'GET'
       }).done(function(result) { // Success
-
-        //console.log(result.DailyForecasts);
         
         var airQuality = result.DailyForecasts[0].AirAndPollen[0].Category;
         var sunrise = getTime(result.DailyForecasts[0].Sun.Rise);
