@@ -62,7 +62,7 @@ function getMoonPhaseClass(age) {
   phase[25] = "wi-moon-waning-crescent-4";
   phase[26] = "wi-moon-waning-crescent-5";
   phase[27] = "wi-moon-waning-crescent-6";
-  return phase[age];
+  return phase[age-1];
 }
 
 function getBeaufort(windSpeed, system) {
@@ -179,7 +179,8 @@ function loadData(system) {
     var $background = $('#background');
     
     var inputCity = $('#inputCity').val();
-    var accuweatherApiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // Accuweather api key
+    //var accuweatherApiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // Accuweather api key
+    var accuweatherApiKey = "KrnJm3pGAtha40EFim82KLEqvaikzMeS"; // Accuweather api key
     var flickrApiKey = "8df7b25e698caeac3e6711c1c46140b1"; // Flickr api key
 
   
