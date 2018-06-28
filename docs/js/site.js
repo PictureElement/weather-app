@@ -179,9 +179,11 @@ function loadData(system) {
     var $background = $('#background');
     
     var inputCity = $('#inputCity').val();
-    var apiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // Accuweather api key
+    var accuweatherApiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb"; // Accuweather api key
+    var flickrApiKey = "8df7b25e698caeac3e6711c1c46140b1"; // Flickr api key
+
   
-    var locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + apiKey + '&q=' + inputCity;
+    var locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + accuweatherApiKey + '&q=' + inputCity;
 
     // Get location key (Accuweather Location API)
     $.ajax({
@@ -192,7 +194,7 @@ function loadData(system) {
       var locationKey = result[0].Key; // Location key
       var location = result[0].EnglishName; // City name
 
-      var placeIDsResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=d8aaa725663506bab63f8a0067a5fe54&query=' + location + '&format=json&nojsoncallback=1';
+      var placeIDsResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.places.find&api_key=' + flickrApiKey + '&query=' + location + '&format=json&nojsoncallback=1';
 
       // Get a list of place IDs (Flickr API: flickr.places.find)
       $.ajax({
@@ -202,7 +204,7 @@ function loadData(system) {
         
         var placeId = result.places.place[0].place_id; // Place id
         
-        var photosResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d8aaa725663506bab63f8a0067a5fe54&tags=city&content_type=1&place_id=' + placeId + '&format=json&nojsoncallback=1';
+        var photosResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickrApiKey + '&tags=city&content_type=1&place_id=' + placeId + '&format=json&nojsoncallback=1';
 
         // Get a list of photos (Flickr API: flickr.photos.search)
         $.ajax({
@@ -212,7 +214,7 @@ function loadData(system) {
           
           var photoId = result.photos.photo[0].id;
 
-          var photoSizesResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=d8aaa725663506bab63f8a0067a5fe54&photo_id=' + photoId + '&format=json&nojsoncallback=1';
+          var photoSizesResourceURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=' + flickrApiKey + '&photo_id=' + photoId + '&format=json&nojsoncallback=1';
 
           // Get the available sizes for a photo (Flickr API: flickr.photos.getSizes)
           $.ajax({
@@ -240,7 +242,7 @@ function loadData(system) {
         throw err;
       });
       
-      var currentConditionsResourceURL = 'https://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + apiKey + '&details=true';
+      var currentConditionsResourceURL = 'https://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + accuweatherApiKey + '&details=true';
 
       // Get current conditions (Accuweather Current Conditions API)
       $.ajax({
@@ -307,15 +309,18 @@ function loadData(system) {
         throw err;
       });
 
+      var forecastResourceURL;
+      var hourlyForecastResourseURL;
+
       // Metric
       if (system === 'metric') {
-        var forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=true';
-        var hourlyForecastResourseURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + locationKey + '?apikey=' + apiKey + '&metric=true';
+        forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + accuweatherApiKey + '&details=true' + '&metric=true';
+        hourlyForecastResourseURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + locationKey + '?apikey=' + accuweatherApiKey + '&metric=true';
       }
       // Imperial
       else {
-        var forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true' + '&metric=false';
-        var hourlyForecastResourseURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + locationKey + '?apikey=' + apiKey + '&metric=true';
+        forecastResourceURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + accuweatherApiKey + '&details=true' + '&metric=false';
+        hourlyForecastResourseURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + locationKey + '?apikey=' + accuweatherApiKey + '&metric=true';
       }
 
       // Get hourly forecast (Accuweather Forecast API)
@@ -323,8 +328,6 @@ function loadData(system) {
         url: hourlyForecastResourseURL,
         method: 'GET'
       }).done(function(result) { // Success
-
-        //console.log(result);
 
         for (var i = 0; i < 12; i++) {
           var time = getTime(result[i].DateTime);
