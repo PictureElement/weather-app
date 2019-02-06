@@ -33,4 +33,4 @@ Fix time related bugs (moonrise, moonset, sunrise, sunset, client time)
 
 ## Copyright &amp; License
 
-&copy; 2018 Marios Sofokleous (PictureElement). Code released under the [MIT](LICENSE.md) license.
+&copy; 2019 Marios Sofokleous (PictureElement). Code released under the [MIT](LICENSE) license.
